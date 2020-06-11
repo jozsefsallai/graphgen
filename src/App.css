@@ -1,0 +1,41 @@
+.wrapper {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.content .options, .content .graph {
+  width: 48%;
+}
+
+.content .graph {
+  height: 80vh;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+@media only screen and ( max-width: 1100px ) {
+  .wrapper {
+    width: 980px;
+  }
+}
+
+@media only screen and ( max-width: 980px ) {
+  .wrapper {
+    width: auto;
+    padding: 15px;
+  }
+
+  .content {
+    display: block;
+  }
+
+  .content .options, .content .graph {
+    width: auto;
+  }
+}
