@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Graph from 'react-graph-vis';
 
 import './Embed.css';
@@ -9,8 +9,6 @@ export default function Embed({ location }) {
   const edges = params.get('edges');
   const directed = params.get('directed');
   const disableInteraction = params.get('disable_interaction');
-
-  const [ error, setError ] = useState('');
 
   const options = {
     autoResize: true,
@@ -24,7 +22,7 @@ export default function Embed({ location }) {
       color: '#000',
       arrows: {
         to: {
-          enabled: directed && directed === 'true'
+          enabled: !!(directed && directed === 'true')
         }
       }
     },
@@ -35,8 +33,13 @@ export default function Embed({ location }) {
   };
 
   let graph = null;
+  let error = null;
 
   try {
+    if (!nodes || !edges) {
+      throw new Error('The "nodes" or the "edges" parameter is missing.');
+    }
+
     graph = {
       nodes: nodes.split(',').map(n => {
         return {
@@ -58,7 +61,7 @@ export default function Embed({ location }) {
       }).filter(e => e !== null)
     }
   } catch (err) {
-    setError(err.message);
+    error = err.message;
   }
 
   return (
